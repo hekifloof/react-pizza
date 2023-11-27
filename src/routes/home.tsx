@@ -28,6 +28,7 @@ const Home = () => {
       setPizzaList(pizzaData);
       setIsLoading(false);
     };
+    window.scrollTo(0, 0);
     fetchPizzaData().catch(console.error);
   }, []);
   return (

@@ -8,6 +8,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media (max-width: 680px) {
+      flex-direction: column;
+      a {
+        margin-bottom: 30px;
+      }
+      .button {
+        margin-bottom: 0px;
+      }
+    }
   }
 
   &__logo {

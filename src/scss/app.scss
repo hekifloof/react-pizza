@@ -14,25 +14,55 @@ body {
   margin: 50px auto;
   border-radius: 10px;
   max-width: 1400px;
+  @media (max-width: 550px) {
+    width: calc(100vw - 30px);
+  }
 }
 
 .content {
   padding: 40px 0;
 
   &__title {
-    margin: 35px 0;
+    margin: 40px 0;
+    font-size: 42px;
+    font-weight: 800;
   }
 
   &__items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+
+    @media (max-width: 1540px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 1150px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 770px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+    }
   }
 
   &__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media (max-width: 1150px) {
+      flex-direction: column-reverse;
+
+      .sort {
+        margin-bottom: 30px;
+      }
+    }
   }
 }
 
