@@ -80,6 +80,11 @@ body {
 }
 
 .cart {
+  padding-bottom: 100px;
+  .content__items {
+    display: block;
+  }
+
   &__top {
     display: flex;
     justify-content: space-between;

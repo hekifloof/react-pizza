@@ -4,6 +4,7 @@ import Root from "./routes/root";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./routes/home";
 import NotFound from "./components/NotFound";
+import Cart from "./routes/cart";
 
 const rootElement = document.getElementById("root");
 
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: <NotFound />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
   },
