@@ -1,8 +1,9 @@
-import { useState } from "react";
+interface CategoriesProps {
+  activeCategory: number;
+  onClickCategory: React.Dispatch<React.SetStateAction<number>>;
+}
 
-const Categories = () => {
-  const [activeCategoty, setActiveCategory] = useState(0);
-
+const Categories = ({ activeCategory, onClickCategory }: CategoriesProps) => {
   const categoryNames = [
     "Все",
     "Мясные",
@@ -20,9 +21,9 @@ const Categories = () => {
             <li
               key={index}
               onClick={() => {
-                setActiveCategory(index);
+                onClickCategory(index);
               }}
-              className={activeCategoty == index ? "active" : ""}
+              className={activeCategory === index ? "active" : ""}
             >
               {categoryName}
             </li>

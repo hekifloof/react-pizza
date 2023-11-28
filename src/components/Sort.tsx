@@ -1,25 +1,56 @@
 import { useState } from "react";
+interface SortProps {
+  activeSort: {
+    name: string;
+    value: string;
+    order: string;
+  };
+  onClickSort: React.Dispatch<
+    React.SetStateAction<{
+      name: string;
+      value: string;
+      order: string;
+    }>
+  >;
+}
 
-const Sort = () => {
+const Sort = ({ activeSort, onClickSort }: SortProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(0);
 
-  const sortOptions = ["популярности", "цене", "алфавиту"];
+  const sortOptions = [
+    { name: "популярности", value: "rating", order: "desc" },
+    { name: "цене", value: "price", order: "desc" },
+    { name: "названию", value: "title", order: "asc" },
+  ];
+
+  const changeOrder = () => {
+    const newOrder = activeSort.order === "desc" ? "asc" : "desc";
+    onClickSort({ ...activeSort, order: newOrder });
+  };
 
   return (
     <div className="sort">
       <div className="sort__label">
         <svg
-          width="10"
-          height="6"
-          viewBox="0 0 10 6"
-          fill="none"
+          onClick={changeOrder}
+          width="35px"
           xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
         >
-          <path
-            d="M10 5C10 5.16927 9.93815 5.31576 9.81445 5.43945C9.69075 5.56315 9.54427 5.625 9.375 5.625H0.625C0.455729 5.625 0.309245 5.56315 0.185547 5.43945C0.061849 5.31576 0 5.16927 0 5C0 4.83073 0.061849 4.68424 0.185547 4.56055L4.56055 0.185547C4.68424 0.061849 4.83073 0 5 0C5.16927 0 5.31576 0.061849 5.43945 0.185547L9.81445 4.56055C9.93815 4.68424 10 4.83073 10 5Z"
-            fill="#2C2C2C"
-          />
+          {(activeSort.order === "asc" && activeSort.value !== "title") ||
+          (activeSort.order === "desc" && activeSort.value === "title") ? (
+            <path
+              d="m16.707 13.293-4-4a1 1 0 0 0-1.414 0l-4 4A1 1 0 0 0 8 15h8a1 1 0 0 0 .707-1.707z"
+              fill="#ff8e31"
+              data-name="Up"
+            />
+          ) : (
+            <path
+              d="M16.924 9.617A1 1 0 0 0 16 9H8a1 1 0 0 0-.707 1.707l4 4a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0 .217-1.09z"
+              fill="#ff8e31"
+              data-name="Down"
+            />
+          )}
         </svg>
         <b>Сортировка по:</b>
         <span
@@ -27,7 +58,7 @@ const Sort = () => {
             setIsVisible((isVisible) => !isVisible);
           }}
         >
-          {sortOptions[selectedOption]}
+          {activeSort.name}
         </span>
       </div>
       {isVisible && (
@@ -37,13 +68,15 @@ const Sort = () => {
               return (
                 <li
                   key={index}
-                  className={selectedOption === index ? "active" : ""}
+                  className={
+                    activeSort.name === sortOption.name ? "active" : ""
+                  }
                   onClick={() => {
-                    setSelectedOption(index);
+                    onClickSort(sortOptions[index]);
                     setIsVisible(false);
                   }}
                 >
-                  {sortOption}
+                  {sortOption.name}
                 </li>
               );
             })}
